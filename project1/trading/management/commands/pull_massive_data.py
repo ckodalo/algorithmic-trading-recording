@@ -7,6 +7,6 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         client = MassiveAPIClient()
-        result = client.fetch_bulk_momentum_data(["AAPL", "NVDA"], date(2026, 5, 12))
+        result = client.fetch_bulk_momentum_data(["AAPL", "NVDA"], date(2026, 10, 4))
         print(result)
         breakpoint()

@@ -1,9 +1,9 @@
 from django.conf import settings
 from snaptrade_client import SnapTrade
-from portfolio.models import Portfolio
+from portfolio.models import Portfolio, Trade
 from typing import List
 from portfolio.models import Position
-from trading.models import Stock, Trade
+from trading.models import Stock
 from decimal import Decimal
 from typing import Optional
 from datetime import datetime
