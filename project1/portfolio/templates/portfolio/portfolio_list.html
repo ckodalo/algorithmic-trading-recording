@@ -1,0 +1,35 @@
+{% extends "portfolio/base.html" %}
+{% load humanize %}
+{% block title %}Portfolios | Momentum Trader{% endblock %}
+{% block content %}
+<h1>Portfolios</h1>
+<p class="muted">Your portfolios at a glance. Values reflect the latest saved data.</p>
+<section class="panel" aria-label="Portfolio overview">
+  {% if portfolios %}
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th scope="col">Portfolio</th><th scope="col" class="number">Total value (USD)</th><th scope="col" class="number">Cash (USD)</th><th scope="col">Status</th></tr></thead>
+      <tbody>
+        {% for portfolio in portfolios %}
+        <tr>
+          <td><strong>{{ portfolio.name }}</strong>{% if portfolio.description %}<div class="description muted">{{ portfolio.description|truncatechars:120 }}</div>{% endif %}</td>
+          <td class="number">${{ portfolio.total_value|floatformat:2|intcomma }}</td>
+          <td class="number">${{ portfolio.current_cash|floatformat:2|intcomma }}</td>
+          <td>{% if portfolio.is_active %}<span class="badge">Active</span>{% else %}<span class="badge inactive">Inactive</span>{% endif %}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% else %}
+  <div class="empty"><h2>No portfolios yet</h2><p class="muted">Create a portfolio to begin tracking its value and cash balance.</p>{% if user.is_staff and perms.portfolio.add_portfolio %}<a class="button" href="{% url 'admin:portfolio_portfolio_add' %}">Create portfolio</a>{% endif %}</div>
+  {% endif %}
+</section>
+{% if is_paginated %}
+<nav class="pagination" aria-label="Portfolio pages">
+  <span>{% if page_obj.has_previous %}<a href="?page={{ page_obj.previous_page_number }}">Previous</a>{% endif %}</span>
+  <span class="muted">Page {{ page_obj.number }} of {{ paginator.num_pages }}</span>
+  <span>{% if page_obj.has_next %}<a href="?page={{ page_obj.next_page_number }}">Next</a>{% endif %}</span>
+</nav>
+{% endif %}
+{% endblock %}

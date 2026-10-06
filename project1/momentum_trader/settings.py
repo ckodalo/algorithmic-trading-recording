@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "django.contrib.humanize",
     "trading",
     "portfolio",
 ]
@@ -123,6 +124,8 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+LOGIN_REDIRECT_URL = "portfolio:list"
 
 MASSIVE_API_KEY = config("MASSIVE_API_KEY", default="")
 SNAPTRADE_CLIENT_SECRET = config("SNAPTRADE_CLIENT_SECRET", default="")
