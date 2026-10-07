@@ -2,3 +2,5 @@ Django
 massive
 python-decouple
 snaptrade-python-sdk
+pandas
+numpy

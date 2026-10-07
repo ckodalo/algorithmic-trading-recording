@@ -11,6 +11,11 @@ class Stock(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    def __str__(self):
+        if self.name and self.name != self.ticker:
+            return f"{self.ticker} - {self.name}"
+        return self.ticker
+
 
 class PriceData(models.Model):
     stock = models.ForeignKey(

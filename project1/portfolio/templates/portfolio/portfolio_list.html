@@ -12,7 +12,7 @@
       <tbody>
         {% for portfolio in portfolios %}
         <tr>
-          <td><strong>{{ portfolio.name }}</strong>{% if portfolio.description %}<div class="description muted">{{ portfolio.description|truncatechars:120 }}</div>{% endif %}</td>
+          <td><a href="{% url 'portfolio:detail' portfolio.pk %}"><strong>{{ portfolio.name }}</strong></a>{% if portfolio.description %}<div class="description muted">{{ portfolio.description|truncatechars:120 }}</div>{% endif %}</td>
           <td class="number">${{ portfolio.total_value|floatformat:2|intcomma }}</td>
           <td class="number">${{ portfolio.current_cash|floatformat:2|intcomma }}</td>
           <td>{% if portfolio.is_active %}<span class="badge">Active</span>{% else %}<span class="badge inactive">Inactive</span>{% endif %}</td>

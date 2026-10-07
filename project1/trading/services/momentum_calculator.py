@@ -3,8 +3,6 @@ from django.utils import timezone
 from datetime import datetime, timedelta
 from decimal import Decimal
 from typing import List, Dict, Optional, Tuple
-import pandas as pd
-import numpy as np
 import logging
 import time
 
@@ -328,6 +326,8 @@ class MomentumCalculator:
 
         if not scores.exists():
             return {}
+
+        import numpy as np
 
         momentum_values = [float(score.momentum_score) for score in scores]
 

@@ -1,6 +1,7 @@
+from __future__ import annotations
+
 from django.conf import settings
 from massive import RESTClient
-import pandas as pd
 from datetime import datetime, timedelta
 from typing import List, Dict, Optional
 import logging
@@ -323,6 +324,8 @@ class MassiveAPIClient:
         
         logger.info(f"Fallback: fetching momentum data for {len(tickers)} stocks from {start_date} to {end_date}")
         
+        import pandas as pd
+
         # Fetch all data with batching
         all_data = self.fetch_multiple_stocks(
             tickers=tickers,
@@ -365,6 +368,7 @@ class MassiveAPIClient:
 
     def _find_closest_price(self, df: pd.DataFrame, target_date: datetime, tolerance_days: int = 7) -> Optional[float]:
         """Find the closest price to a target date within tolerance"""
+        import pandas as pd
         if df.empty:
             return None
         
@@ -422,6 +426,7 @@ class MassiveAPIClient:
         ]
 
     def create_dataframe_from_aggs(self, aggs: List[Dict]) -> pd.DataFrame:
+        import pandas as pd
         if not aggs:
             return pd.DataFrame()
         

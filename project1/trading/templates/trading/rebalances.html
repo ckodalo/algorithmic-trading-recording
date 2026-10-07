@@ -1,0 +1,9 @@
+{% extends "portfolio/base.html" %}
+{% load humanize %}
+{% block title %}Rebalances | Momentum Trader{% endblock %}
+{% block content %}
+<h1>Rebalance history</h1><p class="muted">Saved strategy runs and their outcomes.</p>
+<form method="get" class="filters">{{ filter_form.as_p }}<button type="submit">Apply filters</button> <a href="{% url 'trading:rebalances' %}">Reset</a></form>
+<section class="panel">{% if events %}<div class="table-wrap"><table><thead><tr><th>Date</th><th>Status</th><th class="number">Stocks analyzed</th><th class="number">Buy signals</th><th class="number">Sell signals</th><th class="number">Portfolio value (USD)</th><th>Completed</th><th>Error</th></tr></thead><tbody>{% for event in events %}<tr><td>{{ event.date|date:"Y-m-d" }}</td><td>{{ event.get_execution_status_display }}</td><td class="number">{{ event.total_stocks_analyzed }}</td><td class="number">{{ event.buy_signals_generated }}</td><td class="number">{{ event.sell_signals_generated }}</td><td class="number">{% if event.total_portfolio_value != None %}${{ event.total_portfolio_value|floatformat:2|intcomma }}{% else %}—{% endif %}</td><td>{% if event.completed_at %}{{ event.completed_at|date:"Y-m-d H:i" }} UTC{% else %}—{% endif %}</td><td>{{ event.error_message|default:"—" }}</td></tr>{% endfor %}</tbody></table></div>{% else %}<div class="empty">No rebalance events match this selection.</div>{% endif %}</section>
+{% if is_paginated %}<nav class="pagination" aria-label="Pages"><span>{% if page_obj.has_previous %}<a href="?{{ filter_query }}&page={{ page_obj.previous_page_number }}">Previous</a>{% endif %}</span><span>Page {{ page_obj.number }} of {{ paginator.num_pages }}</span><span>{% if page_obj.has_next %}<a href="?{{ filter_query }}&page={{ page_obj.next_page_number }}">Next</a>{% endif %}</span></nav>{% endif %}
+{% endblock %}
